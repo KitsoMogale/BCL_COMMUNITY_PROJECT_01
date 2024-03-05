@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher_Select</title>
+    <link href="teacherselect.css" rel="stylesheet">
+</head>
+<body>
+
+    <h2>Enter Class</h2>
+
+    <input id="class12" type="text">
+
+
+    <h2>Enter Subject</h2>
+    <input id="sub12" type="text">
+
+
+    <button id="btncommit">commit</button>
+
+
+    <script type="module">
+
+        const input1 = document.getElementById('class12');
+        const input2 = document.getElementById('sub12');
+        const btn = document.getElementById('btncommit');
+
+       btn.addEventListener('click',function(){
+
+        localStorage.setItem('class123',`${input1.value}`);
+        localStorage.setItem('subject123',`${input2.value}`);
+
+        window.location.href = 'evaluation.html';
+       })
+      
+
+
+
+    </script>
+</body>
+
+</html>

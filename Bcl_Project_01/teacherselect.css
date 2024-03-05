@@ -1,0 +1,23 @@
+h2{
+    color:rgb(250, 9, 9);
+    font-weight: bold;
+}
+
+button{
+    background-color: aqua;
+    color:black;
+    font-weight: bold;
+}
+
+input{
+    background-color: chartreuse;
+    color:black;
+    font-weight: bold;
+}
+
+body{
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzmVmebqqmVyj_8quEeN6K33_JalBaPUZuiqIH33tqm9RQl8U6cGpmIPNXrSEa8BpDth8&usqp=CAU');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+}

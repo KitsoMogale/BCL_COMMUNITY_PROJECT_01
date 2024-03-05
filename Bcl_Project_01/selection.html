@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection</title>
+    <link href="selection.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <div class="h11">
+    <h1 id="h1">  </h1>
+    </div>
+
+
+
+
+
+    <div class="h2">
+    <h2 id="class01">Class  </h2>
+    </div>
+
+    <div class="class_S">
+
+        <input id="classes1" type="text">
+
+
+    </div>
+
+
+
+    <h2 id="subject01"> Subject  </h2>
+
+
+    <div id="subjects1" class="subjects">
+
+        
+    <input id="subjects" type="text">
+    <button id="btn1">submit</button>
+    <p id="p1"> </p>
+
+    </div>
+
+    <button id="btn2">Done</button>
+
+</div>
+
+
+<div id="congrats">
+
+
+</div>
+
+
+
+<script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import {getDatabase,set,ref,push} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBpWXIS0Y5AhH5fkNobU2i8ryD593wvy7o",
+          authDomain: "bclcommunityproject.firebaseapp.com",
+          projectId: "bclcommunityproject",
+          storageBucket: "bclcommunityproject.appspot.com",
+          messagingSenderId: "418912919025",
+          appId: "1:418912919025:web:32b8b873007fc4973bf850"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase(app);
+
+
+    const H = document.getElementById('h1');
+   // H.innerText = localStorage.getItem('school');
+    const classes = document.getElementById('classes1');
+    const subjects = document.getElementById('subjects');
+    const sub1 = document.getElementById('subjects1');
+  //  const btn0 = document.getElementById('btn0');
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2');
+    const p = document.getElementById('p1');
+    const schoolname = document.getElementById('h1');
+    schoolname.innerHTML = localStorage.getItem('school');
+    const congrats = document.getElementById('congrats');
+
+    let classes1;
+    let numb = 0;
+
+    btn1.addEventListener('click',function(){
+
+         classes1 = classes.value;
+         
+        p.innerHTML += `${subjects.value}` + ',';
+
+        let s = subjects.value;
+        let c = classes.value;
+        numb += 1;
+
+        commit(c,s,numb);
+
+        subjects.value = '';
+
+    })
+
+    btn2.addEventListener('click',function(){
+
+       // window.location.href = 'index.html';
+
+       p.innerHTML = '';
+       classes.value = '';
+       
+
+       let p2 = document.createElement('p');
+       p2.classList.add('pcongrats');
+       
+
+       p2.innerHTML = 'Congrats on Registering the school';
+
+       congrats.appendChild(p2);
+
+
+
+
+    })
+
+
+
+    function commit(class5,subject,num){
+        let dbref2 = ref(db,`${localStorage.getItem('school')}`+'/'+`${class5}`+'/' + `${subject}`+'/');
+        set(dbref2,{
+            Number:num
+
+
+        })
+
+    }
+
+    
+
+
+
+
+
+
+</script>
+</body>
+</html>

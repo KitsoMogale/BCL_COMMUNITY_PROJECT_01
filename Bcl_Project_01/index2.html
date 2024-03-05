@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bcl_Project</title>
+    <link href="index2.css" rel="stylesheet">
+</head>
+<body>
+  <div class="layout">
+  <div class="classname1">
+    <p id="pclassname">
+
+    </p>
+  </div>
+    <div id="container">
+
+
+
+    </div>
+
+    <progress id="progress1" value="0" max="100">0%</progress>
+    <p id="complain">
+
+    </p>
+    
+  </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import{getDatabase,set,ref,get,update,push,onValue} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBpWXIS0Y5AhH5fkNobU2i8ryD593wvy7o",
+          authDomain: "bclcommunityproject.firebaseapp.com",
+          projectId: "bclcommunityproject",
+          storageBucket: "bclcommunityproject.appspot.com",
+          messagingSenderId: "418912919025",
+          appId: "1:418912919025:web:32b8b873007fc4973bf850"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dbref = ref(db,'classes/');
+
+        const container = document.getElementById('container');
+        const progress = document.getElementById('progress1');
+        const complain = document.getElementById('complain');
+        const pclassname = document.getElementById('pclassname');
+        pclassname.innerHTML = `${localStorage.getItem('class123')}`;
+
+        let total = 0;
+        let count = 0;
+
+        subject();
+
+        function subject(){
+
+          let dbref2 = ref(db,`${localStorage.getItem('nameofschool')}`+'/'+`${localStorage.getItem('class123')}`+'/')
+
+          onValue(dbref2,function(snapshot){
+
+            if(snapshot.exists()){
+
+            let object = Object.entries(snapshot.val());
+
+            for(let i = 0;i< object.length ;i++){
+
+              console.log('for')
+
+              if(object[i][1].Homework){
+                console.log(i);
+
+              let divsub = document.createElement('div');
+              divsub.classList.add('divsub1');
+              divsub.classList.add('divsub');   
+              let psub = document.createElement('p');
+              psub.classList.add('psub');
+              psub.innerHTML = `${object[i][0]}`;
+              let p2 = document.createElement('p');
+              p2.classList.add('p222');
+              p2.innerText = `${object[i][1].Homework}`;
+              let divbar = document.createElement('progress');
+              divbar.classList.add('divbar1');
+              divbar.value = Math.round(object[i][1].Time);
+              divbar.max = 100;
+              divbar.classList.add('divbar');
+
+              divsub.appendChild(psub);
+              divsub.appendChild(p2);
+              divsub.appendChild(divbar);
+
+              container.appendChild(divsub);
+              total += object[i][1].Time;
+              console.log(total);
+              
+              count += 1;
+              
+
+              }
+
+           
+
+           
+
+          }
+
+          progress.value = total/count;
+
+          if(total/count >= 100){
+
+            complain.innerHTML = 'Home-Work exceeds limit, adjust the least significant subject\'s amount of home-work';
+
+          }
+          else{
+            complain.innerHTML = '';
+          }
+
+          }
+          else{
+            console.log('nothing yet');
+          }
+
+
+          })
+
+          
+
+        }
+
+      
+        
+
+
+
+
+
+
+
+
+
+
+
+      </script>
+</body>
+</html>

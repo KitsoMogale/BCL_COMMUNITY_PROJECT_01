@@ -1,0 +1,73 @@
+.form{
+    margin:10px;
+    
+}
+
+.btnregister{
+    border:2px solid blue;
+    background-color: lightblue;
+    font-weight: bold;
+}
+
+.btnsignin{
+    border:2px solid blue;
+    background-color: lightblue;
+    font-weight: bold;
+
+}
+
+
+.formc{
+    border: 3px soloid blue;
+    background-color: aqua;
+    color:blue;
+    font-weight: bold;
+}
+
+@media(min-width:500px){
+    .formc{
+
+        width:400px;
+        height:25px;
+    }
+
+    .h2{
+        position: relative;
+        width:75%;
+    }
+}
+
+
+body{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvEQ1oXw8oi3A5bguwjkV76nD3omyOxU-nEQ&usqp=CAU');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height:100vh;
+
+}
+
+
+
+.formdiv{
+    margin:45px;
+
+
+}
+
+.h2{
+    color:white;
+    background-color: black;
+    padding:8px;
+    top:0;
+}
+
+
+
+
+
+
+

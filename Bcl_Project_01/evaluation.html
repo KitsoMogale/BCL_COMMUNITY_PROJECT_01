@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="evaluation.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="overlay">
+
+    <h1 id="h11">  </h1>
+     
+    <div id="divsub01">
+    <h3 id="h33">   </h3>
+    <ul id="ul1">
+
+    </ul>
+    <div id="flex">
+    <progress id="progress" value="0" max="100">0%</progress>
+    <input id="what" type="text">
+    </div>
+    <button id="btn01p">add</button>
+    <button id="remove">remove</button>
+    <button id="evaluate">evaluate</button>
+    <button id="next">done</button>
+
+</div>
+</div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {getDatabase,set,ref,get,push} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBpWXIS0Y5AhH5fkNobU2i8ryD593wvy7o",
+          authDomain: "bclcommunityproject.firebaseapp.com",
+          projectId: "bclcommunityproject",
+          storageBucket: "bclcommunityproject.appspot.com",
+          messagingSenderId: "418912919025",
+          appId: "1:418912919025:web:32b8b873007fc4973bf850"
+        };
+      
+        // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const dbref = ref(db,`${localStorage.getItem('school')}`+'/'+`${localStorage.getItem('class123')}`+'/'+`${localStorage.getItem('subject123')}`+'/');
+   
+  const input = document.getElementById('what');
+  const ul = document.getElementById('ul1');
+  const btnadd = document.getElementById('btn01p');
+  const btnremove = document.getElementById('remove');
+  const btn3 = document.getElementById('evaluate');
+  const progress = document.getElementById('progress');
+  const h1 = document.getElementById('h11');
+  const h3 = document.getElementById('h33');
+  const next = document.getElementById('next');
+
+  let all = [];
+  let time;
+  let p = "";
+
+  h1.innerHTML = localStorage.getItem('class123');
+  h3.innerHTML = localStorage.getItem('subject123');
+
+
+
+  btnadd.addEventListener('click',function(){
+
+    let li = document.createElement('li');
+    li.classList.add('li');
+
+    li.innerHTML = input.value;
+    ul.appendChild(li);
+
+    all.push(input.value);
+    input.value = '';
+  })
+
+
+
+  btnremove.addEventListener('click',function(){
+
+    all = [];
+
+    ul.innerHTML = '';
+  })
+
+
+
+  btn3.addEventListener('click',function(){
+
+    for(let i = 0;i< all.length;i++){
+
+        p += `${all[i]}` + ',';
+
+    }
+
+
+
+    const api_key = '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'
+    fetch('https://api.openai.com/v1/chat/completions',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':`Bearer ${api_key}`
+        },
+        body:JSON.stringify({
+            "model":"gpt-3.5-turbo",
+            "messages":[{"role":"system","content":`respond with a number only.What is the average time in minutes to complete ${p}  for a high school learner?`}]
+        })
+    }).then(response =>{
+        return response.json();
+    }).then(data =>{
+         time = ((parseInt(data.choices[0].message.content))/120)*100;
+
+        progress.value = time;
+
+        localStorage.setItem('value',`${time}`);
+
+  setTimeout(function(){
+    set(dbref,{
+        Homework:p,
+        Time:time
+       })
+
+  },2000);
+
+
+    })
+
+       
+
+  })
+
+
+  next.addEventListener('click',function(){
+
+    window.location.href = 'index2.html';
+
+  })
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

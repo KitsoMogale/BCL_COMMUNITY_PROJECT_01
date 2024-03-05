@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="register.css" rel="stylesheet">
+</head>
+<body>
+    <div class="h2">
+    <h2>Login</h2>
+    </div>
+
+    <div class="formdiv">
+
+    <form id="Mainform">
+
+        <div class="form">
+            <input type="email" class="formc" id="emailinp" placeholder="schoolname@gmail.com">
+        </div>
+
+
+        <div class="form">
+            <input type="password" class="formc" id="passwordinp" placeholder="password">
+        </div>
+
+        <div class="form">
+            <input type="text" class="formc" id="passwordinp2" placeholder="class">
+        </div>
+
+        <div class="form">
+            <input type="text" class="formc" id="nameofschool" placeholder="schoolname">
+        </div>
+
+
+        <button type="submit" class="btnsignin" >login</button>
+
+
+
+    </form>
+</div>
+    
+</body>
+
+<script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {getAuth,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import {getDatabase,set,ref,get} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBpWXIS0Y5AhH5fkNobU2i8ryD593wvy7o",
+          authDomain: "bclcommunityproject.firebaseapp.com",
+          projectId: "bclcommunityproject",
+          storageBucket: "bclcommunityproject.appspot.com",
+          messagingSenderId: "418912919025",
+          appId: "1:418912919025:web:32b8b873007fc4973bf850"
+        };
+      
+        // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const auth = getAuth(app);
+  const dbref = ref(db);
+
+  const emailinp = document.getElementById('emailinp');
+  const password = document.getElementById('passwordinp');
+  const  classes= document.getElementById('passwordinp2');
+  const mainform = document.getElementById('Mainform');
+  const text = document.getElementById('nameofschool');
+
+
+
+  let signinUser = evt => {
+    evt.preventDefault();
+
+    signInWithEmailAndPassword(auth,emailinp.value,password.value,).then((credentials)=>{
+
+
+               get(ref(db,`${text.value}`+'/')).then((snapshot)=>{
+
+                let data = Object.entries(snapshot.val());
+                console.log(data);
+
+                for(let i = 0;i< data.length;i++){
+
+                    console.log(data[i][0])
+                    if(data[i][0]== classes.value){
+
+                        localStorage.setItem('class123',classes.value);
+                        localStorage.setItem('nameofschool',`${text.value}`);
+                        console.log('cool');
+
+                        window.location.href = 'index2.html';
+
+                    }
+                  
+                }
+
+
+
+
+               })
+               
+
+        
+    })
+  }
+
+  mainform.addEventListener('submit',signinUser);
+
+
+   </script>
+
+  </body>
+</html>

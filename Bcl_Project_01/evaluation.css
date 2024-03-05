@@ -1,0 +1,51 @@
+h1{
+    color:rgb(15, 205, 15);
+}
+
+h3{
+    color:rgb(81, 233, 81);
+}
+
+button{
+    background-color: aquamarine;
+    font-weight: bold;
+    color:black;
+}
+
+input{
+    background-color: blueviolet;
+    color:white;
+    font-weight: bold;
+    width:100px;
+    margin:10px;
+}
+
+progress{
+    width: 300px;
+    height:50px;
+}
+
+#flex{
+    display:flex;
+    flex-direction: column;
+}
+
+body{
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj38Kph2aURG3_Zr5NiEwNKQGkv5ilGKkaog&usqp=CAU');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+}
+
+.overlay{
+    left:0;
+    top:0;
+    background-color: rgb(0,0,0,0.5);
+    width: 100%;
+}
+
+.li{
+    font-weight: bold;
+    color:rgb(243, 17, 17);
+}
+
